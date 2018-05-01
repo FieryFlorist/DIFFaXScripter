@@ -1,0 +1,9 @@
+test.dat
+0 {no dump file}
+0 {no symmetry file}
+3 {powder pattern}
+10 79 .03 {theta_min, theta_max, delta_theta}
+1 {do adaptive quadrature on broad peaks}
+1 {do adaptive quadrature on all l for rows of sharp spots}
+end
+
