@@ -20,14 +20,14 @@ def calcDiff(params):
 	out.write("""
 INSTRUMENTAL                       {Header for instrumental section}
 X-RAY                              {Simulate X-ray diffraction}
-{0}                             {X-ray wavelength}
-PSEUDO-VOIGT {1} {2} {3} {4} TRIM {Instrumental broadening (much slower)}
+%(lamda)f                             {X-ray wavelength}
+PSEUDO-VOIGT %(u)f %(v)f %(w)f %(gamma)f TRIM {Instrumental broadening (much slower)}
 
 STRUCTURAL                         {Header for structural section}
-{5} {5} {6} 120.0         {unit cell coordinates, a, b, c, gamma}
+%(a)f %(a)f %(c)f 120.0         {unit cell coordinates, a, b, c, gamma}
 unknown
 2                                  {A, B, C planes and two alternate silver stackings}
-{7} {7}                           {Layers are very wide in the a-b plane}
+%(size)f %(size)f                           {Layers are very wide in the a-b plane}
 
 LAYER 1
 NONE
@@ -45,19 +45,19 @@ O 2-   4  1/3  2/3  5/6  0.2  1.0
 
 STACKING                         {Header for stacking description}
 recursive                        {Statistical ensemble}
-{8}                         {Infinite number of layers}
+%(layers)f                         {Infinite number of layers}
 
 TRANSITIONS                      {Header for stacking transition data}
 {Transitions from layer 1}
-{9}   1/3   2/3  1.0    {layer 1 to layer 1 - "Rhombohedral"}
-{10}   0/3   0/3  1.0    {layer 1 to layer 2 - "Hexagonal"}
+%(SF1)f   1/3   2/3  1.0    {layer 1 to layer 1 - "Rhombohedral"}
+%(SF2)f   0/3   0/3  1.0    {layer 1 to layer 2 - "Hexagonal"}
 
 {Transitions from layer 2}
-{11}   0/3   0/3  1.0    {layer 2 to layer 1 - "Hexagonal"}
-{12}   2/3   1/3  1.0    {layer 2 to layer 2 - "Rhombohedral"}
-""" % (params['lamda'], params['u'], params['v'], params['w'], params['gamma'],
-       params['SF:A'], params['SF:C'], params['SF:size'], floor(params['SF:size']/params['SF:C']),
-       params['SF:Ratio'], (1-params['SF:Ratio']), (1-params['SF:Ratio']), params['SF:Ratio']))
+%(SF2)f   0/3   0/3  1.0    {layer 2 to layer 1 - "Hexagonal"}
+%(SF1)f   2/3   1/3  1.0    {layer 2 to layer 2 - "Rhombohedral"}
+""" % {'lamda':params['lamda'], 'u':params['u'], 'v':params['v'], 'w':params['w'], 'gamma':params['gamma'],
+       'a':params['SF:A'], 'c':params['SF:C'], 'size':params['SF:size'], 'layers':floor(params['SF:size']/params['SF:C']),
+       'SF1':params['SF:Ratio'], 'SF2':(1-params['SF:Ratio']))
 	out.close()
 	# Amend DIFFaX control file
 	# Run DIFFaX
