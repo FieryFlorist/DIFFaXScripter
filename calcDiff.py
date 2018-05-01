@@ -74,14 +74,14 @@ TRANSITIONS                      {Header for stacking transition data}
 	out.write("""
 INSTRUMENTAL
 X-RAY
-1.5418
-PSEUDO-VOIGT 0.756 -1.067 0.426 0.9 TRIM
+%(lamda)f
+PSEUDO-VOIGT %(u)f %(v)f %(w)f %(gamma)f TRIM
 
 STRUCTURAL
-5.8902 5.8902 2.4047 120.0
+%(a)f %(a)f %(c)f 120.0
 unknown
 4
-400 400
+%(size)f %(size)f
 
 { Hex One }
 LAYER 1
@@ -129,7 +129,7 @@ O 2-   7  1/6  5/6  0.5 0.2 1.0
 
 STACKING
 recursive
-350
+%(layers)d
 
 TRANSITIONS
 {Transitions from layer 1}
@@ -154,7 +154,9 @@ TRANSITIONS
 %(MP1)f   1/3   2/3  1.0
 %(MP2)f   2/3   1/3  1.0
 0.0   1/3   2/3  1.0
-0.0   2/3   1/3  1.0""" % {'MP1':params['Mh:Ratio'], 'MP2':(1-params['Mh:Ratio'])}
+0.0   2/3   1/3  1.0""" % {'lamda':params['lamda'], 'u':params['u'], 'v':params['v'], 'w':params['w'], 'gamma':params['gamma'],
+	'size':params['Mh:size'], 'layers':floor(params['Mh:size']/(0.408254*params['Mh:a'])), 'a':params['Mh:a'],
+	'c':(0.408254*params['Mh:a']), 'MP1':params['Mh:Ratio'], 'MP2':(1-params['Mh:Ratio'])}
 	out.close()
 	# Amend DIFFaX control file
 	# Run DIFFaX
