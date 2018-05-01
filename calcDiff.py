@@ -56,8 +56,8 @@ TRANSITIONS                      {Header for stacking transition data}
 %(SF2)f   0/3   0/3  1.0    {layer 2 to layer 1 - "Hexagonal"}
 %(SF1)f   2/3   1/3  1.0    {layer 2 to layer 2 - "Rhombohedral"}
 """ % {'lamda':params['lamda'], 'u':params['u'], 'v':params['v'], 'w':params['w'], 'gamma':params['gamma'],
-       'a':params['SF:A'], 'c':params['SF:C'], 'size':params['SF:size'], 'layers':floor(params['SF:size']/params['SF:C']),
-       'SF1':params['SF:Ratio'], 'SF2':(1-params['SF:Ratio']))
+	'a':params['SF:a'], 'c':params['SF:c'], 'size':params['SF:size'], 'layers':floor(params['SF:size']/params['SF:C']),
+	'SF1':params['SF:Ratio'], 'SF2':(1-params['SF:Ratio']))
 	out.close()
 	# Amend DIFFaX control file
 	# Run DIFFaX
@@ -175,15 +175,29 @@ TRANSITIONS
 
 
 params = {}
+# General Parameters
+# Lambda
+params['lamda']=1.541
+# U, V, W, Gamma
+params['u']=1
+params['v']=1
+params['w']=1
+params['gamma']=1
 # Silver Ferrite Parameters
 # A & B
+params['SF:a'] = 5
 # C
+params['SF:c'] = 4
 # Rhombohedral Ratio
 params['SF:Ratio'] = 0.3
 # Size
+params['SF:size'] = 400
 # Maghemite Parameters
 # A & B & C
+params['Mh:a'] = 5.8
 # Size
+params['Mh:size'] = 400
+# Rhombohedral Ratio
 params['Mh:Ratio'] = 1.0
 # Polynomial Parameters
 # 2 Theta Min, 2 Theta Max, 2 Theta Step
